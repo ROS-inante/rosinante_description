@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="rosinante_ros2_control" params="name prefix use_fake_hardware:=^|false">
+
+
+    <ros2_control name="${name}_drive_front" type="system">
+      <hardware>
+        
+        <xacro:if value="${use_fake_hardware}">
+          <plugin>ros2_control_odrive_hw/DummyODriveSystemHardware</plugin>
+        </xacro:if>
+        <xacro:unless value="${use_fake_hardware}">
+          <plugin>ros2_control_odrive_hw/ODriveSystemHardware</plugin>
+        </xacro:unless>
+
+        <param name="serial_number">2058367A424D</param>
+        
+        <param name="json_descriptor_path">2058367A424D</param>
+        <param name="read_config">true</param>
+        <param name="write_config">false</param>
+      </hardware>
+
+      <joint name="${prefix}front_left_wheel_joint">
+        <command_interface name="velocity"/>
+        <state_interface name="velocity"/>
+      </joint>
+      <joint name="${prefix}front_right_wheel_joint">
+        <command_interface name="velocity"/>
+        <state_interface name="velocity"/>
+      </joint>
+    </ros2_control>
+
+    <ros2_control name="${name}_drive_back" type="system">
+      <hardware>
+        <xacro:if value="${use_fake_hardware}">
+          <plugin>ros2_control_odrive_hw/DummyODriveSystemHardware</plugin>
+        </xacro:if>
+        <xacro:unless value="${use_fake_hardware}">
+          <plugin>ros2_control_odrive_hw/ODriveSystemHardware</plugin>
+        </xacro:unless>
+
+        <param name="serial_number">20533693424D</param>
+
+        <param name="json_descriptor_path">20533693424D</param>
+        <param name="read_config">true</param>
+        <param name="write_config">false</param>
+      </hardware>
+
+      <joint name="${prefix}back_right_wheel_joint">
+        <command_interface name="velocity"/>
+        <state_interface name="velocity"/>
+      </joint>
+      <joint name="${prefix}back_left_wheel_joint">
+        <command_interface name="velocity"/>
+        <state_interface name="velocity"/>
+      </joint>
+    </ros2_control>
+
+  </xacro:macro>
+
+</robot>

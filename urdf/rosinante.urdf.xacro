@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!-- ROSINANTE mobile base -->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="rosinante_robot">
+  <xacro:arg name="prefix" default="" />
+
+  <xacro:arg name="use_fake_hardware" default="false" />
+
+  <xacro:include filename="$(find rosinante_description)/urdf/rosinante_description.urdf.xacro" />
+
+  <xacro:include filename="$(find rosinante_description)/gazebo/rosinante.gazebo.xacro" />
+
+  <!-- Import Rviz colors -->
+  <xacro:include filename="$(find rosinante_description)/gazebo/rosinante.materials.xacro" />
+
+  <!-- Import diffbot ros2_control description -->
+  <xacro:include filename="$(find rosinante_description)/ros2_control/rosinante.ros2_control.xacro" />
+
+
+  <xacro:rosinante prefix="$(arg prefix)" />
+
+  <xacro:rosinante_gazebo prefix="$(arg prefix)" />
+
+  <xacro:rosinante_ros2_control
+    name="rosinante" prefix="$(arg prefix)"
+    use_fake_hardware="$(arg use_fake_hardware)" />
+
+</robot>

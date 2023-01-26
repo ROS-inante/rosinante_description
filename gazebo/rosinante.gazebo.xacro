@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!--
+Copied and modified from ROS1 example:
+https://github.com/ros-simulation/gazebo_ros_demos/blob/kinetic-devel/diffbot_description/urdf/diffbot.gazebo
+-->
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:macro name="rosinante_gazebo" params="prefix">
+
+     <!-- ros_control plugin  -->
+    <!--
+    <gazebo>
+      <plugin filename="libign_ros2_control-system.so"  name="ign_ros2_control::IgnitionROS2ControlPlugin">
+        <parameters>$(find rosinante_bringup)/config/rosinante_controllers_gazebo.yaml</parameters>
+      </plugin>
+    </gazebo>
+
+    -->
+
+    <gazebo>
+      <plugin
+        filename="libignition-gazebo-velocity-control-system.so"
+        name="ignition::gazebo::systems::VelocityControl">
+        <topic>cmd_vel</topic>
+      </plugin>
+    </gazebo>
+
+    <gazebo>
+      <plugin
+        filename="libignition-gazebo-odometry-publisher-system.so"
+        name="ignition::gazebo::systems::OdometryPublisher">
+        <robot_base_frame>base_link</robot_base_frame>
+        <odom_frame>map</odom_frame>
+        <odom_topic>map_odom</odom_topic>
+        <odom_publish_frequency>2</odom_publish_frequency>
+      </plugin>
+    </gazebo>
+
+
+    <!-- Link1 -->
+    <gazebo reference="${prefix}base_link">
+      <material>Gazebo/Blue</material>
+    </gazebo>
+
+   
+  </xacro:macro>
+
+</robot>
